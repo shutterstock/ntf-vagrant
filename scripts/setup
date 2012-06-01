@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+clone() {
+  name="$1"
+  user="${2:-$USER}"
+  dir="${3:-$name}"
+  if [[ ! -e "$dir" ]]; then
+      git clone "git@github.com:${user}/${name}.git" "$dir"
+  fi
+}
+
+clone ntf
+pushd ntf
+  npm install
+popd
+
+clone ntfd
+pushd ntfd
+  npm link ../ntf
+  npm install
+  pushd example
+    npm link ../
+    npm link ../../ntf
+    npm install
+  popd
+popd
+
+clone ntfserver
+pushd ntfserver
+  npm install
+  make static
+popd
+
+mkdir -p puppet/modules
+
+pushd puppet/modules
+  clone puppetlabs-mysql puppetlabs mysql
+popd
+
+vagrant up
