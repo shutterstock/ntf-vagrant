@@ -11,4 +11,4 @@ clean:
 	vagrant destroy -f
 	rm -fr ntf ntfd ntfserver puppet/modules
 
-.PHONY: build clean static
+.PHONY: build daemon server clean
