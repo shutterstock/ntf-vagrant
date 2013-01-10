@@ -1,14 +1,14 @@
 build:
 	./scripts/setup
 
-daemon:
+ntfd:
 	node ./ntfd/example/tests.js
 
-server:
+ntfserver:
 	./ntfserver/bin/ntfserver
 
 clean:
 	vagrant destroy -f
 	rm -fr ntf ntfd ntfserver puppet/modules
 
-.PHONY: build daemon server clean
+.PHONY: build ntfd ntfserver clean
